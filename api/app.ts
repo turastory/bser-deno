@@ -5,4 +5,8 @@ const app = new Application();
 
 app.use(router.routes(), router.allowedMethods());
 
-await app.listen({ port: 8080 });
+app.addEventListener("listen", ({ port }) => {
+  console.log(`Server has started on port: ${port}`);
+});
+
+app.listen({ port: 8080 });
