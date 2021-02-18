@@ -1,11 +1,12 @@
 import { route } from "./utils.ts";
+import ApiResult from "../model/ApiResult.ts";
 
 export default route((router) => {
-  router.get("/", (ctx) => {
-    ctx.response.body = "Noo";
-  });
-
-  router.get("/test", (ctx) => {
-    ctx.response.body = "Hello World";
+  router.get("", (ctx) => {
+    console.log("Hello");
+    ctx.response.body = ApiResult.OK({
+      a: "aa",
+      b: "bb",
+    });
   });
 });

@@ -1,18 +1,27 @@
 import ApiError from "./ApiError.ts";
 
-export class ApiResult {
-  response: any;
+type Response =
+  | string
+  | number
+  | boolean
+  | symbol
+  | Record<string, unknown>
+  | undefined
+  | null;
+
+export default class ApiResult {
+  response: Response;
   success: boolean;
   error?: ApiError;
 
-  constructor(response: any, success: boolean, error?: ApiError) {
+  constructor(response: Response, success: boolean, error?: ApiError) {
     this.response = response;
     this.success = success;
     this.error = error;
     console.log(this.error);
   }
 
-  static OK(response: any): ApiResult {
+  static OK(response: Response): ApiResult {
     return new ApiResult(response, true);
   }
 
