@@ -18,7 +18,6 @@ export default class ApiResult {
     this.response = response;
     this.success = success;
     this.error = error;
-    console.log(this.error);
   }
 
   static OK(response: Response): ApiResult {
