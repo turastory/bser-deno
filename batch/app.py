@@ -35,4 +35,5 @@ def health_check():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    debug = os.environ["FLASK_ENV"] == "development"
+    app.run(debug=debug)
