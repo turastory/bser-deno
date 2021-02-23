@@ -10,15 +10,11 @@ type Response =
   | null;
 
 export default class ApiResult {
-  response: Response;
-  success: boolean;
-  error?: ApiError;
-
-  constructor(response: Response, success: boolean, error?: ApiError) {
-    this.response = response;
-    this.success = success;
-    this.error = error;
-  }
+  constructor(
+    readonly response: Response,
+    readonly success: boolean,
+    readonly error?: ApiError,
+  ) {}
 
   static OK(response: Response): ApiResult {
     return new ApiResult(response, true);
