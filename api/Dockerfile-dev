@@ -4,11 +4,8 @@ EXPOSE 8080
 
 WORKDIR /app
 
-COPY deps.ts .
-RUN deno cache deps.ts
-
 ADD . .
-RUN deno cache app.ts
+RUN deno cache mod.ts --import-map=import_map.json --unstable
 
 RUN deno install -qAf --unstable https://deno.land/x/denon/denon.ts
 CMD ["denon", "start"]

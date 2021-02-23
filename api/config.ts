@@ -13,10 +13,12 @@ const require = (name: string): string => {
  */
 interface Config {
   name: string;
+  port: number;
 }
 
 const config: Config = {
   name: require("NAME"),
+  port: parseInt(get("PORT") ?? "8080"),
 };
 
 export default config;

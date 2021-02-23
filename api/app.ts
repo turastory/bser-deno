@@ -1,12 +1,26 @@
-import { Application } from "./deps.ts";
-import router from "./router/mod.ts";
+import { json, Opine, opine, urlencoded } from "opine";
+import { createError } from "http_errors";
+import type { ErrorRequestHandler } from "opine";
+import apiRouter from "./routes/api.ts";
 
-const app = new Application();
+const app: Opine = opine();
 
-app.use(router.routes(), router.allowedMethods());
+// Body types
+app.use(json());
+app.use(urlencoded());
 
-app.addEventListener("listen", ({ port }) => {
-  console.log(`Server has started on port: ${port}`);
+// Routers
+app.use("/api/v1", apiRouter);
+
+// Handling 404 requests
+app.use((req, res, next) => {
+  next(createError(404));
 });
 
-app.listen({ port: 8080 });
+const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
+  res.setStatus(err.status ?? 500).json(err.message);
+};
+
+app.use(errorHandler);
+
+export default app;
